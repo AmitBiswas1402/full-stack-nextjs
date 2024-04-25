@@ -30,6 +30,13 @@ export async function POST(request: Request) {
       { $group: { _id: "$_id", messages: { $push: "$messages" } } },
     ]);
     if (!user || user.length === 0) {
+      return Response.json(
+        {
+          success: false,
+          message: "user not found",
+        },
+        { status: 401 }
+      );
     }
   } catch (error) {
     return Response.json(
